@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
+using nflow.core.Scan;
+
 namespace dependency_injection
 {
     internal class Program
@@ -11,39 +13,15 @@ namespace dependency_injection
 
             IServiceCollection sc = new ServiceCollection();
 
-            bool type_is_registry(Type type) => type.IsSubclassOf(typeof(Registry));
+            var scan = sc.AutoScan();
 
-            sc.Scan(scanner => scanner
-                .FromEntryAssembly()
-                    .AddClasses(classes => classes.Where(type_is_registry))
-                    .As<Registry>()
-            );
+            var iFoo = scan.RequiredService<IFoo>();
+            var iBar = scan.RequiredService<IBar>();
 
-            IServiceProvider sp = sc.BuildServiceProvider();
-
-            var reg1 = sp.GetService<Reg1>();
-            var registries = sp.GetServices<Registry>();
-
-            ICollection<ServiceDescriptor> accumulated = new ServiceCollection();
-            registries
-                .SelectMany(serviceDescriptors => serviceDescriptors)
-                .ToList()
-                .ForEach(serviceDescriptor => accumulated.Add(serviceDescriptor));
-
-            IServiceCollection appServices = (ServiceCollection)accumulated;
-
-            var appSp = appServices.BuildServiceProvider();
-
-            var iFoo = appSp.GetRequiredService<IFoo>();
-            var iBar = appSp.GetRequiredService<IBar>();
-
-
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("We didn't blow up so we must be fine!");
         }
     }
 
-
-    public abstract class Registry : ServiceCollection { }
 
     public class Reg1 : Registry
     {
