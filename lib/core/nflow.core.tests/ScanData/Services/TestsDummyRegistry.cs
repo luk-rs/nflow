@@ -1,9 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
-using nflow.core.Scan;
 
-namespace nflow.core.tests.Scan.ScanData
+namespace nflow.core.tests.ScanData.Services
 {
-    public class TestsDummyRegistry :Registry
+    public class TestsDummyRegistry :Abstractions.Registry
     {
         public TestsDummyRegistry()
         {

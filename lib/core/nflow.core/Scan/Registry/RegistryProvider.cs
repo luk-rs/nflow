@@ -1,15 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using nflow.core.Abstractions;
 
 namespace nflow.core.Scan
 {
-    public sealed class RegistryScan
+    public sealed class RegistryProvider
     {
-        private readonly ServiceProvider _provider;
+        private readonly IServiceProvider _provider;
 
-        public RegistryScan(IEnumerable<Registry> registries)
+        public RegistryProvider(IEnumerable<Registry> registries)
         {
             var services = registries
                 .Cast<IServiceCollection>()
@@ -20,7 +22,6 @@ namespace nflow.core.Scan
 
         public T Service<T>() => _provider.GetService<T>();
         public IEnumerable<T> AllServices<T>() => _provider.GetServices<T>();
-
         public T RequiredService<T>() => _provider.GetRequiredService<T>();
     }
 }

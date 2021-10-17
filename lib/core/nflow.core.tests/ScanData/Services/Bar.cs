@@ -1,4 +1,4 @@
-namespace nflow.core.tests.Scan.ScanData
+namespace nflow.core.tests.ScanData.Services
 {
     public class Bar:IBar
     {

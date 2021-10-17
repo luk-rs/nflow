@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
+using nflow.core.Abstractions;
 using nflow.core.Scan;
 
 namespace dependency_injection
@@ -13,7 +14,7 @@ namespace dependency_injection
 
             IServiceCollection sc = new ServiceCollection();
 
-            var scan = sc.AutoScan();
+            var scan = sc.ScanRegistries();
 
             var iFoo = scan.RequiredService<IFoo>();
             var iBar = scan.RequiredService<IBar>();

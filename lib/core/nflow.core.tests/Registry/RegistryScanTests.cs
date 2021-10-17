@@ -1,19 +1,19 @@
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using nflow.core.Scan;
-using nflow.core.tests.deps;
 using nflow.core.tests.deps.Services;
-using nflow.core.tests.Scan.ScanData;
+using nflow.core.tests.ScanData;
+using nflow.core.tests.ScanData.Services;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace nflow.core.tests.Scan
+namespace nflow.core.tests.Registry
 {
-    public class ApplicationServicesScanTests
+    public class RegistryScanTests
     {
         private readonly ITestOutputHelper _output;
         
-        public ApplicationServicesScanTests(ITestOutputHelper output)
+        public RegistryScanTests(ITestOutputHelper output)
         {
             _output = output;
         }
@@ -21,7 +21,7 @@ namespace nflow.core.tests.Scan
         [Fact]
         public void RegistryDeclarationsAreSuccessfullyScannedForCurrentAssembly()
         {
-            var sut = new ServiceCollection().AutoScan(typeof(ApplicationServicesScanTests).Assembly);
+            var sut = new ServiceCollection().ScanRegistries(typeof(RegistryScanTests).Assembly);
 
             var foo = sut.Service<IFoo>();
             foo.Should().NotBeNull();
@@ -36,9 +36,9 @@ namespace nflow.core.tests.Scan
         }
         
         [Fact]
-        public void RegistryDeclarationsAreSuccessfullyScannedForDependantAssembly()
+        public void RegistryDeclarationsAreSuccessfullyScannedForDependentAssembly()
         {
-            var sut = new ServiceCollection().AutoScan(typeof(ApplicationServicesScanTests).Assembly);
+            var sut = new ServiceCollection().ScanRegistries(typeof(RegistryScanTests).Assembly);
             
             var foo = sut.Service<IBarDep>();
             foo.Should().NotBeNull();
