@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using nflow.core.Abstractions;
 using nflow.core.Scan;
@@ -11,7 +9,6 @@ namespace dependency_injection
     {
         private static void Main(string[] args)
         {
-
             IServiceCollection sc = new ServiceCollection();
 
             var scan = sc.ScanRegistries();
@@ -32,7 +29,9 @@ namespace dependency_injection
         }
     }
 
-    internal class Foo : IFoo { }
+    internal class Foo : IFoo
+    {
+    }
 
     internal interface IFoo
     {
@@ -46,7 +45,9 @@ namespace dependency_injection
         }
     }
 
-    internal class Bar : IBar { }
+    internal class Bar : IBar
+    {
+    }
 
     internal interface IBar
     {

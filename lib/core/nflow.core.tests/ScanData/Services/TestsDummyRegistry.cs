@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace nflow.core.tests.ScanData.Services
 {
-    public class TestsDummyRegistry :Abstractions.Registry
+    public class TestsDummyRegistry : Abstractions.Registry
     {
         public TestsDummyRegistry()
         {

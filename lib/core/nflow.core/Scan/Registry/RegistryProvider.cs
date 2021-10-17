@@ -20,8 +20,19 @@ namespace nflow.core.Scan
             _provider = services.BuildServiceProvider();
         }
 
-        public T Service<T>() => _provider.GetService<T>();
-        public IEnumerable<T> AllServices<T>() => _provider.GetServices<T>();
-        public T RequiredService<T>() => _provider.GetRequiredService<T>();
+        public T Service<T>()
+        {
+            return _provider.GetService<T>();
+        }
+
+        public IEnumerable<T> AllServices<T>()
+        {
+            return _provider.GetServices<T>();
+        }
+
+        public T RequiredService<T>()
+        {
+            return _provider.GetRequiredService<T>();
+        }
     }
 }

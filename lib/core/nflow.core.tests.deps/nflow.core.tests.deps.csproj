@@ -5,7 +5,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\nflow.core\nflow.core.csproj" />
+        <ProjectReference Include="..\nflow.core\nflow.core.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Scan"/>
     </ItemGroup>
 
 </Project>

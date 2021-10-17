@@ -3,7 +3,7 @@ using nflow.core.Abstractions;
 
 namespace nflow.core.tests.deps.Services
 {
-    public class TestsDepsDummyRegistry:Registry
+    public class TestsDepsDummyRegistry : Registry
     {
         public TestsDepsDummyRegistry()
         {

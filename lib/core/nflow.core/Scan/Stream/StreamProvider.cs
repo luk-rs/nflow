@@ -8,8 +8,8 @@ namespace nflow.core.Scan.Stream
 {
     public class StreamProvider
     {
-        private IServiceProvider _privateStreamsProvider;
-        private IServiceProvider _publicStreamsProvider;
+        private readonly IServiceProvider _privateStreamsProvider;
+        private readonly IServiceProvider _publicStreamsProvider;
 
         public StreamProvider(IServiceCollection streams)
         {
@@ -37,17 +37,35 @@ namespace nflow.core.Scan.Stream
         public T Public<T>() where T : class, IStream
         {
             var publicStreams = _publicStreamsProvider.GetServices<IStream>();
-            var stream = publicStreams.SingleOrDefault(s => s.GetType().IsAssignableFrom(typeof(T)));
-
-            return stream as T;
+            return Filter<T>(publicStreams)
+                .SingleOrDefault();
         }
-        
-        public T Private<T>() where T : class, IStream
+
+        public T Private<T>(string microNamespace) where T : class, IStream
         {
             var privateStreams = _privateStreamsProvider.GetServices<IStream>();
-            var stream = privateStreams.SingleOrDefault(s => s.GetType().IsAssignableFrom(typeof(T)));
+            return Filter<T>(privateStreams, microNamespace)
+                .SingleOrDefault();
+        }
 
-            return stream as T;
+        public IEnumerable<IStream> Micro(string microNamespace)
+        {
+            var privateStreams = _privateStreamsProvider.GetServices<IStream>();
+            var publicStreams = _publicStreamsProvider.GetServices<IStream>();
+            var allStreams = privateStreams.Concat(publicStreams);
+
+            return Filter<IStream>(allStreams, microNamespace);
+        }
+
+        private static IEnumerable<T> Filter<T>(IEnumerable<IStream> streams, string microNamespace = default)
+            where T : class, IStream
+        {
+            var filtered = streams
+                .Where(s => s is T)
+                .Where(s => microNamespace == default || s.GetType().Namespace!.Contains(microNamespace))
+                .Cast<T>();
+
+            return filtered;
         }
     }
 }
