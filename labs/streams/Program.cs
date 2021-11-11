@@ -4,19 +4,18 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reactive.Linq;
-    using streams.Core;
-    using streams.Core.BusComponents;
     using streams.MicroServiceA.Commands;
     using streams.MicroServiceA.NanoServices;
     using streams.MicroServiceA.Streams;
     using streams.MicroServiceB.NanoServices;
+    using nflow.core.Flow;
 
     internal class Program
     {
         internal static void Main(string[] args)
         {
             var microABus = new Bus();
-            microABus.LocalStreams.Add(typeof(Bar), new PersistedStream<Bar>());
+            microABus.AddOracle<Bar>();
 
             var microBBus = new Bus();
 
@@ -44,9 +43,9 @@
 
     public class Flow
     {
-        private readonly List<IBus> _buses = new(); //Created after assemblies scanning
+        private readonly List<IMicroBus> _buses = new(); //Created after assemblies scanning
 
-        public Flow(IEnumerable<IBus> buses) => _buses = new List<IBus>(buses);
+        public Flow(IEnumerable<IMicroBus> buses) => _buses = new List<IMicroBus>(buses);
 
         //1 - Scan assemblies
         //2 - Create one Bus per each MicroService

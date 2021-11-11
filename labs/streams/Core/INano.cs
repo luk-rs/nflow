@@ -2,11 +2,11 @@
 {
     using System;
     using System.Reactive;
-    using streams.Core.BusComponents;
+    using nflow.core.Flow;
 
     public interface INano
     {
-        IObservable<Unit> Connect(IBus bus);
+        IObservable<Unit> Connect(IMicroBus bus);
     }
 }
 

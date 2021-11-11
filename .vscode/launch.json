@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/labs/dependency_injection/bin/Debug/net5.0/dependency_injection.dll",
+            "program": "${workspaceFolder}/labs/streams/bin/Debug/net5.0/streams.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/labs/dependency_injection",
+            "cwd": "${workspaceFolder}/labs/streams",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
             "stopAtEntry": false

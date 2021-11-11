@@ -1,7 +1,7 @@
-﻿namespace streams.Core.BusComponents
+﻿namespace nflow.core.Flow
 {
     using System;
-    using streams.Core;
+
 
     public interface IEventbus
     {

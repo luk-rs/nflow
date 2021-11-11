@@ -9,19 +9,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/labs/dependency_injection/dependency_injection.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "publish",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "publish",
-                "${workspaceFolder}/labs/dependency_injection/dependency_injection.csproj",
+                "${workspaceFolder}/nflow.sln",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -34,7 +22,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/labs/dependency_injection/dependency_injection.csproj",
+                "${workspaceFolder}/labs/streams/streams.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
