@@ -1,5 +1,7 @@
-namespace nflow.core;
-
-public interface IWhisperers
+namespace nflow.core
 {
+
+    public interface IWhisperers
+    {
+    }
 }

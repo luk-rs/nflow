@@ -1,5 +1,7 @@
-namespace nflow.core;
-
-public interface ICommands
+namespace nflow.core
 {
+
+    public interface ICommands
+    {
+    }
 }

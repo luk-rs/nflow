@@ -1,7 +1,9 @@
-namespace nflow.core;
-
-public interface IStream
+namespace nflow.core
 {
-    bool IsPublic => false;
-    int Order => int.MaxValue;
+
+    public interface IStream
+    {
+        bool IsPublic => false;
+        int Order => int.MaxValue;
+    }
 }

@@ -1,5 +1,7 @@
-namespace nflow.core;
-
-public interface IBus
+namespace nflow.core
 {
+
+    public interface IBus
+    {
+    }
 }
