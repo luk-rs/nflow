@@ -17,9 +17,9 @@ namespace nflow.core
 
             registry.ScanRegistries(assembly);
 
-            var bootstrap = registry.BuildServiceProvider();
+            var bootstrapper = registry.BuildServiceProvider();
 
-            services.AddSingleton(_ => bootstrap.GetRequiredService<IFlow>());
+            services.AddSingleton(_ => bootstrapper.GetRequiredService<IFlow>());
 
             return services;
         }

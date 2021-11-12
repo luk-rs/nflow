@@ -1,11 +1,12 @@
-namespace nflow.core.tests.ScanData.Services
+namespace nflow.core.tests.ScanData
 {
     using Microsoft.Extensions.DependencyInjection;
     using nflow.core;
+    using nflow.core.tests.ScanData.Services;
 
-    public class TestsDummyRegistry : Registry
+    public class TestsDummy : Registry
     {
-        public TestsDummyRegistry()
+        public TestsDummy()
         {
             this.AddSingleton<IFoo, Foo>();
             this.AddTransient<IBar, Bar>();

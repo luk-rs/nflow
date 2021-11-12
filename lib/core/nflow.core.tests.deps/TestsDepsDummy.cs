@@ -1,10 +1,11 @@
 using Microsoft.Extensions.DependencyInjection;
+using nflow.core.tests.deps.Services;
 
-namespace nflow.core.tests.deps.Services
+namespace nflow.core.tests.deps
 {
-    public class TestsDepsDummyRegistry : Registry
+    public class TestsDepsDummy : Registry
     {
-        public TestsDepsDummyRegistry()
+        public TestsDepsDummy()
         {
             this.AddSingleton<IBarDep, BarDep>();
 
