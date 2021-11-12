@@ -1,7 +1,7 @@
-namespace nflow.core.Abstractions
+namespace nflow.core;
+
+public interface IStream
 {
-    public interface IStream
-    {
-        bool IsPublic { get; }
-    }
+    bool IsPublic => false;
+    int Order => int.MaxValue;
 }

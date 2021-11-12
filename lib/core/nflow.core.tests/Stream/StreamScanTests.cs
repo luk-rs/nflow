@@ -1,107 +1,107 @@
-using System.Linq;
-using FluentAssertions;
-using Microsoft.Extensions.DependencyInjection;
-using nflow.core.Scan.Stream;
-using nflow.core.tests.deps.Scan.Streams;
-using nflow.core.tests.ScanData.Streams;
-using Xunit;
-using Xunit.Abstractions;
+// using System.Linq;
+// using FluentAssertions;
+// using Microsoft.Extensions.DependencyInjection;
 
-namespace nflow.core.tests.Stream
-{
-    public class StreamScanTests
-    {
-        private readonly ITestOutputHelper _output;
+// using nflow.core.tests.deps.Scan.Streams;
+// using nflow.core.tests.ScanData.Streams;
+// using Xunit;
+// using Xunit.Abstractions;
 
-        public StreamScanTests(ITestOutputHelper output)
-        {
-            _output = output;
-        }
+// namespace nflow.core.tests.Stream
+// {
+//     public class StreamScanTests
+//     {
+//         private readonly ITestOutputHelper _output;
 
-        [Fact]
-        public void StreamsAreSuccessfullyScannedForCurrentAssembly()
-        {
-            var sut = new ServiceCollection().ScanStreams(typeof(StreamScanTests).Assembly);
+//         public StreamScanTests(ITestOutputHelper output)
+//         {
+//             _output = output;
+//         }
 
-            var barStream = sut.Private<BarStream>("tests.Scan");
-            var fooStream = sut.Public<FooStream>();
+//         [Fact]
+//         public void StreamsAreSuccessfullyScannedForCurrentAssembly()
+//         {
+//             var sut = new ServiceCollection().ScanStreams(typeof(StreamScanTests).Assembly);
 
-            barStream.Should().NotBeNull();
-            fooStream.Should().NotBeNull();
-        }
+//             var barStream = sut.Private<BarStream>("tests.Scan");
+//             var fooStream = sut.Public<FooStream>();
 
-        [Fact]
-        public void StreamShouldBeNullWhenRequestedWithIncorrectAccessibilityForCurrentAssembly()
-        {
-            var sut = new ServiceCollection().ScanStreams(typeof(StreamScanTests).Assembly);
+//             barStream.Should().NotBeNull();
+//             fooStream.Should().NotBeNull();
+//         }
 
-            var barStream = sut.Public<BarStream>();
-            var fooStream = sut.Private<FooStream>("tests.Scan");
+//         [Fact]
+//         public void StreamShouldBeNullWhenRequestedWithIncorrectAccessibilityForCurrentAssembly()
+//         {
+//             var sut = new ServiceCollection().ScanStreams(typeof(StreamScanTests).Assembly);
 
-            barStream.Should().BeNull();
-            fooStream.Should().BeNull();
-        }
+//             var barStream = sut.Public<BarStream>();
+//             var fooStream = sut.Private<FooStream>("tests.Scan");
 
-        [Fact]
-        public void StreamsAreSuccessfullyScannedForDependentAssembly()
-        {
-            var sut = new ServiceCollection().ScanStreams(typeof(StreamScanTests).Assembly);
+//             barStream.Should().BeNull();
+//             fooStream.Should().BeNull();
+//         }
 
-            var barStream = sut.Public<BarDepStream>();
-            var fooStream = sut.Private<FooDepStream>("tests.deps.Scan");
+//         [Fact]
+//         public void StreamsAreSuccessfullyScannedForDependentAssembly()
+//         {
+//             var sut = new ServiceCollection().ScanStreams(typeof(StreamScanTests).Assembly);
 
-            barStream.Should().NotBeNull();
-            fooStream.Should().NotBeNull();
-        }
+//             var barStream = sut.Public<BarDepStream>();
+//             var fooStream = sut.Private<FooDepStream>("tests.deps.Scan");
 
-        [Fact]
-        public void StreamShouldBeNullWhenRequestedWithIncorrectAccessibilityForDependentAssembly()
-        {
-            var sut = new ServiceCollection().ScanStreams(typeof(StreamScanTests).Assembly);
+//             barStream.Should().NotBeNull();
+//             fooStream.Should().NotBeNull();
+//         }
 
-            var barStream = sut.Private<BarDepStream>("tests.deps.Scan");
-            var fooStream = sut.Public<FooDepStream>();
+//         [Fact]
+//         public void StreamShouldBeNullWhenRequestedWithIncorrectAccessibilityForDependentAssembly()
+//         {
+//             var sut = new ServiceCollection().ScanStreams(typeof(StreamScanTests).Assembly);
 
-            barStream.Should().BeNull();
-            fooStream.Should().BeNull();
-        }
+//             var barStream = sut.Private<BarDepStream>("tests.deps.Scan");
+//             var fooStream = sut.Public<FooDepStream>();
 
-        [Fact]
-        public void StreamShouldBeAvailableForItsMicroInCurrentAssembly()
-        {
-            var sut = new ServiceCollection().ScanStreams(typeof(StreamScanTests).Assembly);
+//             barStream.Should().BeNull();
+//             fooStream.Should().BeNull();
+//         }
 
-            var streams = sut
-                .Micro("tests.Scan")
-                .ToList();
+//         [Fact]
+//         public void StreamShouldBeAvailableForItsMicroInCurrentAssembly()
+//         {
+//             var sut = new ServiceCollection().ScanStreams(typeof(StreamScanTests).Assembly);
 
-            streams.Count.Should().Be(2);
-            streams.Select(s => s.GetType())
-                .Should()
-                .BeEquivalentTo(new[]
-                {
-                    typeof(BarStream),
-                    typeof(FooStream)
-                });
-        }
+//             var streams = sut
+//                 .Micro("tests.Scan")
+//                 .ToList();
 
-        [Fact]
-        public void StreamShouldBeAvailableForItsMicroInDependentAssembly()
-        {
-            var sut = new ServiceCollection().ScanStreams(typeof(StreamScanTests).Assembly);
+//             streams.Count.Should().Be(2);
+//             streams.Select(s => s.GetType())
+//                 .Should()
+//                 .BeEquivalentTo(new[]
+//                 {
+//                     typeof(BarStream),
+//                     typeof(FooStream)
+//                 });
+//         }
 
-            var streams = sut
-                .Micro("tests.deps.Scan")
-                .ToList();
+//         [Fact]
+//         public void StreamShouldBeAvailableForItsMicroInDependentAssembly()
+//         {
+//             var sut = new ServiceCollection().ScanStreams(typeof(StreamScanTests).Assembly);
 
-            streams.Count.Should().Be(2);
-            streams.Select(s => s.GetType())
-                .Should()
-                .BeEquivalentTo(new[]
-                {
-                    typeof(BarDepStream),
-                    typeof(FooDepStream)
-                });
-        }
-    }
-}
+//             var streams = sut
+//                 .Micro("tests.deps.Scan")
+//                 .ToList();
+
+//             streams.Count.Should().Be(2);
+//             streams.Select(s => s.GetType())
+//                 .Should()
+//                 .BeEquivalentTo(new[]
+//                 {
+//                     typeof(BarDepStream),
+//                     typeof(FooDepStream)
+//                 });
+//         }
+//     }
+// }

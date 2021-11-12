@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\lib\core\nflow.core\nflow.core.csproj" />
+    <ProjectReference Include="..\..\lib\core\nflow.core.tests.deps\nflow.core.tests.deps.csproj" />
   </ItemGroup>
 
   <ItemGroup>

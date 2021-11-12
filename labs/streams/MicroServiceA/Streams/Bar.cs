@@ -1,7 +1,6 @@
 ﻿namespace streams.MicroServiceA.Streams
 {
-    using nflow.core.Flow;
-    using streams.Core;
+    using nflow.core;
 
     public class Bar : IPersistedStream
     {

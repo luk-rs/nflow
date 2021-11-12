@@ -1,4 +1,4 @@
-﻿namespace nflow.core.Flow
+﻿namespace nflow.core
 {
     public interface ICommand { }
 }

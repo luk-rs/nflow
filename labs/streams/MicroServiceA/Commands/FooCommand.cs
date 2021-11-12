@@ -1,7 +1,7 @@
-﻿namespace streams.MicroServiceA.Commands
-{
-    using nflow.core.Flow;
+﻿// namespace streams.MicroServiceA.Commands
+// {
+//     using nflow.core.Flow;
 
-    public record FooCommand : ICommand { }
-}
+//     public record FooCommand : ICommand { }
+// }
 

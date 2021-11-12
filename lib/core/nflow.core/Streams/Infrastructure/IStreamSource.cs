@@ -1,8 +1,8 @@
-﻿namespace nflow.core.Flow
+﻿namespace nflow.core
 {
     using System;
     using System.Collections.Generic;
-    using nflow.core.Flow;
+
 
     public interface IStreamSource
     {

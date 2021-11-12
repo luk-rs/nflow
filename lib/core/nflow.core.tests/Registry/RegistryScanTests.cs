@@ -1,6 +1,5 @@
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using nflow.core.Scan;
 using nflow.core.tests.deps.Services;
 using nflow.core.tests.ScanData.Services;
 using Xunit;
@@ -20,13 +19,16 @@ namespace nflow.core.tests.Registry
         [Fact]
         public void RegistryDeclarationsAreSuccessfullyScannedForCurrentAssembly()
         {
-            var sut = new ServiceCollection().ScanRegistries(typeof(RegistryScanTests).Assembly);
+            IServiceCollection collection = new ServiceCollection();
+            collection.AttachFlow(typeof(RegistryScanTests).Assembly);
 
-            var foo = sut.Service<IFoo>();
+            var sut = collection.BuildServiceProvider();
+
+            var foo = sut.GetService<IFoo>();
             foo.Should().NotBeNull();
 
-            var bar1 = sut.Service<IBar>();
-            var bar2 = sut.Service<IBar>();
+            var bar1 = sut.GetService<IBar>();
+            var bar2 = sut.GetService<IBar>();
 
             bar1.Should().NotBeNull();
             bar2.Should().NotBeNull();
@@ -37,13 +39,16 @@ namespace nflow.core.tests.Registry
         [Fact]
         public void RegistryDeclarationsAreSuccessfullyScannedForDependentAssembly()
         {
-            var sut = new ServiceCollection().ScanRegistries(typeof(RegistryScanTests).Assembly);
+            IServiceCollection collection = new ServiceCollection();
+            collection.AttachFlow(typeof(RegistryScanTests).Assembly);
 
-            var foo = sut.Service<IBarDep>();
+            var sut = collection.BuildServiceProvider();
+
+            var foo = sut.GetService<IBarDep>();
             foo.Should().NotBeNull();
 
-            var bar1 = sut.Service<IFooDep>();
-            var bar2 = sut.Service<IFooDep>();
+            var bar1 = sut.GetService<IFooDep>();
+            var bar2 = sut.GetService<IFooDep>();
 
             bar1.Should().NotBeNull();
             bar2.Should().NotBeNull();

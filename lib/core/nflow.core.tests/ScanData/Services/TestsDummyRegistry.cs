@@ -1,8 +1,9 @@
-using Microsoft.Extensions.DependencyInjection;
-
 namespace nflow.core.tests.ScanData.Services
 {
-    public class TestsDummyRegistry : Abstractions.Registry
+    using Microsoft.Extensions.DependencyInjection;
+    using nflow.core;
+
+    public class TestsDummyRegistry : Registry
     {
         public TestsDummyRegistry()
         {

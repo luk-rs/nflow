@@ -1,4 +1,4 @@
-namespace nflow.core.Abstractions
+namespace nflow.core
 {
     public interface INano
     {
