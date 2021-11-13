@@ -1,5 +1,6 @@
 ﻿namespace nflow.core
 {
-    public interface IPersistedStream : IStream { }
+    public interface IPersistedStream : IStream
+    { }
 }
 

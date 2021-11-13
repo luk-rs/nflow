@@ -1,16 +1,30 @@
 ﻿namespace streams
 {
+    using System;
+    using System.Reactive.Linq;
+    using System.Reactive.Threading.Tasks;
+    using System.Threading.Tasks;
     using Microsoft.Extensions.DependencyInjection;
     using nflow.core;
+    using nflow.core.Test.Streams;
 
     internal class Program
     {
-        internal static void Main(string[] args)
+        internal static async Task Main(string[] args)
         {
             var container = new ServiceCollection().AttachFlow().BuildServiceProvider();
 
             IFlow flow1 = container.GetRequiredService<IFlow>();
 
+
+            var whisper = flow1.Bus.Whisper<StreamZ>().Listen.Do(z => Console.WriteLine(z.Name)).Take(1).ToTask();
+            var instruction = flow1.Bus.Instruction<CommandZ>().Handle.Do(z => Console.WriteLine(z.Name)).Take(1).ToTask();
+
+            flow1.Bus.Instruction<CommandZ>().CommandTo(z => z.Name = "Hello Commands");
+            flow1.Bus.Whisper<StreamZ>().Gossip(z => z.Name = "Hello Whispers");
+
+            await instruction;
+            await whisper;
 
             // var microABus = new Bus();
             // microABus.AddOracle<Bar>();

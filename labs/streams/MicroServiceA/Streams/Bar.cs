@@ -2,7 +2,7 @@
 {
     using nflow.core;
 
-    public class Bar : IPersistedStream
+    public class Bar : IWhisper
     {
         public int SomeValue { get; set; } = 0;
     }

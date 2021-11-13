@@ -7,12 +7,12 @@ namespace nflow.core
     public class StreamDictionary : Dictionary<Type, object>
     {
 
-        public StreamDictionary AddOracle<TStream>(Func<TStream> construction)
-            where TStream : IPersistedStream, new()
-        {
-            base.Add(typeof(TStream), new Oracle<TStream>());
-            return this;
-        }
+        // public StreamDictionary AddOracle<TStream>(Func<TStream> construction)
+        //     where TStream : IWhisper, new()
+        // {
+        //     base.Add(typeof(TStream), new Oracle<TStream>());
+        //     return this;
+        // }
     }
 
 
