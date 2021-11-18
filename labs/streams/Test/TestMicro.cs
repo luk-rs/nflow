@@ -1,7 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
-using nflow.core.Test.Services;
+using nflow.core;
+using streams.Test.Services;
 
-namespace nflow.core.Test
+namespace streams.Test
 {
 
     internal class TestMicro : Registry

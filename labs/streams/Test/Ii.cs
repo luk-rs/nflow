@@ -1,4 +1,4 @@
-namespace nflow.core.Test.Services
+namespace streams.Test.Services
 {
 
     internal interface Ii

@@ -1,10 +1,12 @@
-namespace nflow.core.Test.Nanos
+namespace streams.Test.Nanos
 {
     using System;
     using System.Reactive;
     using System.Reactive.Linq;
-    using nflow.core.Test.Services;
-    using nflow.core.Test.Streams;
+    using nflow.core;
+    using streams.Test.Commands;
+    using streams.Test.Services;
+    using streams.Test.Streams;
 
     internal class NanoZ : INano
     {

@@ -7,7 +7,8 @@
     using System.Threading.Tasks;
     using Microsoft.Extensions.DependencyInjection;
     using nflow.core;
-    using nflow.core.Test.Streams;
+    using streams.Test.Commands;
+    using streams.Test.Streams;
 
     internal class Program
     {
