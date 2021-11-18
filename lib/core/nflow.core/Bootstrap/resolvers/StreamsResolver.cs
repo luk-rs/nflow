@@ -73,6 +73,7 @@ namespace nflow.core
 
         private static void BootstrapOracles(ServiceCollection streams, ServiceCollection hooks)
         => Bootstrap<IOracle, IOracleBus<IOracle>>(streams, hooks, typeof(Oracle<>));
+
         private static void BootstrapInstructions(ServiceCollection streams, ServiceCollection hooks)
         => Bootstrap<ICommand, IInstructionsBus<ICommand>>(streams, hooks, typeof(Instruction<>));
         private static void BootstrapWhispers(ServiceCollection streams, ServiceCollection hooks)

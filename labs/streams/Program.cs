@@ -1,6 +1,7 @@
 ﻿namespace streams
 {
     using System;
+    using System.Reactive;
     using System.Reactive.Linq;
     using System.Reactive.Threading.Tasks;
     using System.Threading.Tasks;
@@ -17,12 +18,27 @@
             IFlow flow1 = container.GetRequiredService<IFlow>();
 
 
-            var whisper = flow1.Bus.Whisper<StreamZ>().Listen.Do(z => Console.WriteLine(z.Name)).Take(1).ToTask();
-            var instruction = flow1.Bus.Instruction<CommandZ>().Handle.Do(z => Console.WriteLine(z.Name)).Take(1).ToTask();
+            var whisper = flow1.Bus.Whisper<StreamZ>().Listen.Do(z => Console.WriteLine(z.Name)).Take(50).ToTask();
+            var instruction = flow1.Bus.Instruction<CommandZ>().Handle.Do(z => Console.WriteLine(z.Name)).Take(2).ToTask();
+
+
+            var whispers = Observable
+            .Range(0, 50)
+            .Select(
+                it => Observable
+                .Return(Unit.Default)
+                .Do(_ => flow1.Bus.Whisper<StreamZ>().Gossip(z => z.Name = $"Hello Whispers {it}"))
+            )
+            .Merge()
+            .LastAsync()
+            .ToTask();
+
 
             flow1.Bus.Instruction<CommandZ>().CommandTo(z => z.Name = "Hello Commands");
-            flow1.Bus.Whisper<StreamZ>().Gossip(z => z.Name = "Hello Whispers");
+            flow1.Bus.Instruction<CommandZ>().CommandTo(z => z.Name += " Santos");
 
+
+            await whispers;
             await instruction;
             await whisper;
 

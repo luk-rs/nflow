@@ -2,12 +2,6 @@
 {
     using System;
 
-    public interface IWhispersBus<TWhisper> where TWhisper : IWhisper
-    {
-        void Gossip(Action<TWhisper> whisp);
-        IObservable<TWhisper> Listen { get; }
-    }
-
     internal sealed class Whisper<TWhisper> : Hook<TWhisper>, IWhispersBus<TWhisper>
     where TWhisper : IWhisper, new()
     {

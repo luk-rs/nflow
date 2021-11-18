@@ -4,13 +4,6 @@ namespace nflow.core
     using System.Collections.Generic;
     using System.Linq;
 
-    public interface IBus
-    {
-        IOracleBus<TOracle> Oracle<TOracle>() where TOracle : IOracle;
-        IWhispersBus<TWhisper> Whisper<TWhisper>() where TWhisper : IWhisper;
-        IInstructionsBus<TCommand> Instruction<TCommand>() where TCommand : ICommand;
-    }
-
     internal sealed class MicroBus : IBus
     {
         IOracleBus<TOracle> IBus.Oracle<TOracle>()

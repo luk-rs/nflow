@@ -5,38 +5,11 @@ namespace nflow.core
     using System.Collections.Generic;
     using System.Linq;
 
-    internal interface IMicro
-    {
-        string Name => Registry.GetType().Name;
-        string Namespace => Registry.Namespace;
-        Registry Registry { get; }
-        IBus Bus { get; }
-        IEnumerable<IStream> PublicStreams => Streams.Where(stream => stream.IsPublic);
-        IEnumerable<IStream> InternalStreams => Streams.Except(PublicStreams);
-        IEnumerable<IStream> Streams { get; }
-        IEnumerable<IHook> Hooks => Oracles.Concat(Whispers).Concat(Instructions);
-        IEnumerable<IHook> Oracles { get; }
-        IEnumerable<IHook> Whispers { get; }
-        IEnumerable<IHook> Instructions { get; }
-
-    }
-
     internal class Micro : IMicro
     {
         IMicro Self => this as IMicro;
         IBus IMicro.Bus => _bus;
-
-        IEnumerable<IStream> IMicro.Streams => _mStreams;
-        IEnumerable<IHook> IMicro.Hooks => _oHooks.Concat(_wHooks).Concat(_iHooks);
-
         Registry IMicro.Registry => _mRegistry;
-
-        IEnumerable<IHook> IMicro.Oracles => _oHooks;
-
-        IEnumerable<IHook> IMicro.Whispers => _wHooks;
-
-        IEnumerable<IHook> IMicro.Instructions => _iHooks;
-
         public Micro(Registry registry, IStreamsResolver streams, INanosResolver nanos)
         {
             _mRegistry = registry;
