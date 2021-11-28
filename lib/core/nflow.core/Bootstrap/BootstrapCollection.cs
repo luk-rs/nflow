@@ -125,7 +125,7 @@ namespace nflow.core
 
 			this.AddSingleton<IStreamCarrier[]>(bootstrap =>
 			{
-				var streams = bootstrap.GetService<IStream[]>();
+				var streams = bootstrap.GetRequiredService<IStream[]>();
 				var generators = bootstrap.GetServices<IStreamCarrierGenerator>();
 
 				var carrierCtors = streams
@@ -134,7 +134,7 @@ namespace nflow.core
 						var generator = generators
 							.SingleOrDefault(g => g.For(stream));
 
-						return () => generator?.New(stream);
+						return (Func<IStreamCarrier>)(() => generator?.New(stream));
 					});
 
 				IStreamCarrier[] build_carriers() => carrierCtors
