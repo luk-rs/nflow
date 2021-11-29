@@ -7,6 +7,7 @@ using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using nflow.core;
+using streams.MicroServiceA.Commands;
 using streams.Test.Commands;
 using streams.Test.Streams;
 
@@ -87,6 +88,10 @@ void NonNanoConsumer()
 	.LastAsync()
 	.ToTask();
 
+	bus.Commands.Send(new FooCommand());
+	bus.Commands.Send(new FooCommand());
+	bus.Commands.Send(new FooCommand());
+	bus.Commands.Send(new FooCommand());
 
 	Task.WaitAll(whispers, instruction, whisper);
 }

@@ -1,7 +1,7 @@
-﻿// namespace streams.MicroServiceA.Streams
-// {
-//     using nflow.core.Flow;
+﻿namespace streams.MicroServiceA.Streams
+{
+	using nflow.core;
 
 
-//     // internal record FooEvent(int Value) : IEvent;
-// }
+	internal record FooEvent(int Value) : IWhisper;
+}
