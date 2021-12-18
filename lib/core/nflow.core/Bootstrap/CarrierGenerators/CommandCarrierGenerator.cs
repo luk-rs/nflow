@@ -12,7 +12,7 @@ namespace nflow.core
 
 			var activator = carrier.MakeGenericType(arg);
 
-			var instance = Activator.CreateInstance(activator);
+			var instance = Activator.CreateInstance(activator, stream);
 
 			return instance as IStreamCarrier;
 		}
