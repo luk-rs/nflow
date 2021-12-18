@@ -6,10 +6,10 @@ namespace nflow.core
 	using System.Reflection;
 	using Microsoft.Extensions.DependencyInjection;
 
-	internal partial class BootstrapRegistry : ServiceCollection
+	internal class BootstrapCollection : ServiceCollection
 	{
 
-		public BootstrapRegistry(Assembly origin)
+		public BootstrapCollection(Assembly origin)
 		{
 			var hook = RegisterHookFrom(origin);
 

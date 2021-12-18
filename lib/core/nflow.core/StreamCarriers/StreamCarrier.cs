@@ -18,11 +18,11 @@ namespace nflow.core
 		IObservable<TTargetStream> IStreamCarrier.Hook<TTargetStream>()
 		=> _subject
 		.Select(x => (TTargetStream)(object)x)
-		.Catch<TTargetStream, Exception>(ex =>
+		.Catch((Func<Exception, IObservable<TTargetStream>>)(ex =>
 		 {
 			 Debug.WriteLine($"Could not resolve hook for {typeof(TTargetStream)} on carrier of {typeof(TStream)} with exception {ex}");
 			 return Observable.Empty<TTargetStream>();
-		 });
+		 }));
 		void IStreamCarrier.Route(object payload)
 		{
 			Action route = typeof(TStream).IsAssignableFrom(payload.GetType())
@@ -38,12 +38,12 @@ namespace nflow.core
 			_ => default
 		};
 
-		public StreamCarrier()
+		public StreamCarrier(TStream @default)
 		{
 			_subject = typeof(TStream) switch
 			{
 
-				{ } type when typeof(IPersistedStream).IsAssignableFrom(type) => new BehaviorSubject<TStream>(default(TStream)),
+				{ } type when typeof(IPersistedStream).IsAssignableFrom(type) => new BehaviorSubject<TStream>(@default),
 				{ } type when typeof(IStream).IsAssignableFrom(type) => new Subject<TStream>(),
 				_ => throw new ArgumentOutOfRangeException()
 			};

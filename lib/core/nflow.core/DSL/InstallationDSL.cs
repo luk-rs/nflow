@@ -11,7 +11,7 @@ namespace nflow.core
 
 		public static IServiceCollection WithFlow(this IServiceCollection services, Assembly origin = default)
 		{
-			var bootstrap = new BootstrapRegistry(origin).BuildServiceProvider();
+			var bootstrap = new BootstrapCollection(origin).BuildServiceProvider();
 
 			var flow = bootstrap.GetRequiredService<IFlow>();
 
@@ -24,7 +24,7 @@ namespace nflow.core
 		//* Bootstrap helpers
 		private static IServiceProvider GenerateBootstrapContainer(this IServiceCollection collection, Assembly origin)
 		{
-			var bootstrapCollection = new BootstrapRegistry(origin);
+			var bootstrapCollection = new BootstrapCollection(origin);
 			return bootstrapCollection.BuildServiceProvider();
 		}
 

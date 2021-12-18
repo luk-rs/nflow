@@ -1,25 +1,22 @@
 namespace nflow.core
 {
-    using System;
+	using System;
 
-    internal partial class BootstrapRegistry
-    {
-        class WhisperCarrierGenerator : StreamCarrierGenerator<IWhisper>
-        {
-            
-            public override IStreamCarrier CreateInstance<TStream>(object stream)
-            {
-                var arg = stream.GetType();
+	class WhisperCarrierGenerator : StreamCarrierGenerator<IWhisper>
+	{
 
-                var carrier = typeof(WhisperCarrier<>);
+		public override IStreamCarrier CreateInstance<TStream>(object stream)
+		{
+			var arg = stream.GetType();
 
-                var activator = carrier.MakeGenericType(arg);
+			var carrier = typeof(WhisperCarrier<>);
 
-                var instance = Activator.CreateInstance(activator);
+			var activator = carrier.MakeGenericType(arg);
 
-                return instance as IStreamCarrier;
-            }
-        }
-    }
+			var instance = Activator.CreateInstance(activator);
+
+			return instance as IStreamCarrier;
+		}
+	}
 
 }

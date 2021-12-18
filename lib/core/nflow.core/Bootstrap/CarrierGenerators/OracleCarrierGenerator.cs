@@ -1,24 +1,23 @@
 namespace nflow.core
 {
-    using System;
+	using System;
 
-    internal partial class BootstrapRegistry
-    {
-        sealed class OracleCarrierGenerator : StreamCarrierGenerator<IOracle>
-        {
-            public override IStreamCarrier CreateInstance<TStream>(object stream)
-            {
-                var arg = stream.GetType();
+	internal sealed class OracleCarrierGenerator : StreamCarrierGenerator<IOracle>
+	{
 
-                var carrier = typeof(OracleCarrier<>);
+		public override IStreamCarrier CreateInstance<TStream>(object stream)
+		{
+			var arg = stream.GetType();
 
-                var activator = carrier.MakeGenericType(arg);
+			var carrier = typeof(OracleCarrier<>);
 
-                var instance = Activator.CreateInstance(activator);
+			var activator = carrier.MakeGenericType(arg);
 
-                return instance as IStreamCarrier;
-            }
-        }
-    }
+			var instance = Activator.CreateInstance(activator, stream);
 
+			return instance as IStreamCarrier;
+		}
+
+	}
 }
+
