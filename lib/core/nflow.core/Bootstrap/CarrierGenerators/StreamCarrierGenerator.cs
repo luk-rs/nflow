@@ -1,19 +1,28 @@
 namespace nflow.core
 {
-	abstract class StreamCarrierGenerator<TTargetStream> : IStreamCarrierGenerator<TTargetStream>
-		  where TTargetStream : IStream
+	using System;
+
+	internal class StreamCarrierGenerator : IStreamCarrierGenerator
 	{
-		//* still to implement
-		public abstract IStreamCarrier CreateInstance<TStream>(object stream) where TStream : TTargetStream;
 
+		IStreamCarrier IStreamCarrierGenerator.New<TStream>(TStream stream)
+		{
+			var arg = stream.GetType();
 
-		//? default behavior
-		bool IStreamCarrierGenerator.For(IStream stream) => Self.Handling(stream);
-		public IStreamCarrier New<TStream>(TStream stream)
-		where TStream : class, IStream
-		=> Self.CreateInstance<TTargetStream>(stream);
+			var carrier = stream switch
+			{
+				IOracle => typeof(OracleCarrier<>),
+				ICommand => typeof(CommandCarrier<>),
+				IWhisper => typeof(WhisperCarrier<>),
+				_ => throw new ArgumentOutOfRangeException(nameof(stream))
+			};
 
-		private IStreamCarrierGenerator<TTargetStream> Self => ((IStreamCarrierGenerator<TTargetStream>)this);
+			var activator = carrier.MakeGenericType(arg);
+
+			var instance = Activator.CreateInstance(activator, stream);
+
+			return instance as IStreamCarrier;
+		}
 	}
 }
 

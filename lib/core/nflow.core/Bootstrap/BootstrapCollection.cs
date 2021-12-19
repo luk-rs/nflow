@@ -117,25 +117,16 @@ namespace nflow.core
 				 .Select(type => type.generate_sample())
 				 .ToArray();
 
-			this.AddSingleton<IStream[]>(_ => streams);
+			this.AddSingleton(_ => streams);
 
-			this.AddSingleton<IStreamCarrierGenerator, OracleCarrierGenerator>();
-			this.AddSingleton<IStreamCarrierGenerator, WhisperCarrierGenerator>();
-			this.AddSingleton<IStreamCarrierGenerator, CommandCarrierGenerator>();
+			this.AddSingleton<IStreamCarrierGenerator, StreamCarrierGenerator>();
 
-			this.AddSingleton<IStreamCarrier[]>(bootstrap =>
+			this.AddSingleton(bootstrap =>
 			{
 				var streams = bootstrap.GetRequiredService<IStream[]>();
-				var generators = bootstrap.GetServices<IStreamCarrierGenerator>();
+				var generator = bootstrap.GetRequiredService<IStreamCarrierGenerator>();
 
-				var carrierCtors = streams
-					.Select(stream =>
-					{
-						var generator = generators
-							.SingleOrDefault(g => g.For(stream));
-
-						return (Func<IStreamCarrier>)(() => generator?.New(stream));
-					});
+				var carrierCtors = streams.Select(stream => (Func<IStreamCarrier>)(() => generator?.New(stream)));
 
 				IStreamCarrier[] build_carriers() => carrierCtors
 					.Select(ctor => ctor())
