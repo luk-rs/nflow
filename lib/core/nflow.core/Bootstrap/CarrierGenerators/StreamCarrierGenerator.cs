@@ -9,13 +9,14 @@ namespace nflow.core
 		{
 			var arg = stream.GetType();
 
-			var carrier = stream switch
-			{
-				IOracle => typeof(OracleCarrier<>),
-				ICommand => typeof(CommandCarrier<>),
-				IWhisper => typeof(WhisperCarrier<>),
-				_ => throw new ArgumentOutOfRangeException(nameof(stream))
-			};
+			var carrier = typeof(StreamCarrier<>);
+			//	stream switch
+			//{
+			//	IOracle => typeof(OracleCarrier<>),
+			//	ICommand => typeof(CommandCarrier<>),
+			//	IWhisper => typeof(WhisperCarrier<>),
+			//	_ => throw new ArgumentOutOfRangeException(nameof(stream))
+			//};
 
 			var activator = carrier.MakeGenericType(arg);
 
