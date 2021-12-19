@@ -1,9 +1,12 @@
 ﻿namespace SquadViewer.Views
 {
 	using System;
+	using System.Reactive.Concurrency;
+	using System.Reactive.Linq;
 	using System.Windows;
 	using Microsoft.Extensions.DependencyInjection;
 	using nflow.core;
+	using Reactive.Bindings;
 	using SquadViewer.MicroServices.DataContexts.Streams;
 
 	/// <summary>
@@ -26,6 +29,9 @@
 			bus
 				.Oracles
 				.Query<CurrentPage>()
+				.ObserveOn(Scheduler.Default)
+				.Delay(TimeSpan.FromSeconds(5))
+				.ObserveOn(ReactivePropertyScheduler.Default)
 				.Subscribe(currentPage => DataContext = currentPage.Page);
 		}
 	}
