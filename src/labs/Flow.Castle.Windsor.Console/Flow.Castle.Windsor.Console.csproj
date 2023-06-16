@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<OutputType>Exe</OutputType>
+	<TargetFramework>net5.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Castle.Windsor" Version="5.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\app\Flow.Reactive.Castle.Windsor\Flow.Reactive.Castle.Windsor.csproj" />
+    <ProjectReference Include="..\..\app\Flow.Reactive\Flow.Reactive.csproj" />
+    <ProjectReference Include="..\Flow.Castle.Windor.Domain\Flow.Castle.Windsor.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

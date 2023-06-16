@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\app\Flow.Reactive.Autofac\Flow.Reactive.Autofac.csproj" />
+    <ProjectReference Include="..\..\app\Flow.Reactive.IPC\Flow.Reactive.IPC.csproj" />
+    <ProjectReference Include="..\..\app\Flow.Reactive\Flow.Reactive.csproj" />
+  </ItemGroup>
+
+</Project>

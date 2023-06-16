@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <LangVersion>latest</LangVersion>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\app\Flow.Reactive.Logging\Flow.Reactive.Logging.csproj" />
+    <ProjectReference Include="..\..\app\Flow.Reactive.Json\Flow.Reactive.Json.csproj" />
+    <ProjectReference Include="..\..\app\Flow.Reactive.ReactiveProperty\Flow.Reactive.ReactiveProperty.csproj" />
+    <ProjectReference Include="..\..\app\Flow.Reactive\Flow.Reactive.csproj" />
+    <ProjectReference Include="..\..\app\Flow.Wpf\Flow.Wpf.csproj" />
+  </ItemGroup>
+
+</Project>
